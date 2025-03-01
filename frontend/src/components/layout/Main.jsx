@@ -92,7 +92,7 @@ const Main = () => {
           </h1>
 
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mb-8 sm:mb-12">
-            <Link to="/docs" className="w-full sm:w-auto">
+            <Link to="/upload" className="w-full sm:w-auto">
               <Button className="w-full sm:w-auto cursor-pointer bg-white text-black hover:bg-gray-200 px-6 py-6 rounded-lg transition-all duration-300">
                 Upload Your Stuff
                 <Flame className="w-6 h-6 ml-2 text-red-500" />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Upload, FileText, Zap, Code, AlertCircle, Check, Loader } from 'lucide-react';
+import { Upload, FileText, Zap, Code, AlertCircle, Check, Loader, ChevronLeft, Flame } from 'lucide-react';
 
 const ROAST_LEVELS = {
   MILD: 'mild',
@@ -79,15 +79,32 @@ function RoastMyStuff() {
     }
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="min-h-screen font-sans flex flex-col text-white">
-      <header className="py-10 px-4 shadow-lg">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-white mb-2">Roast My Stuff</h1>
-          <p className="text-white text-opacity-90 text-lg max-w-xl mx-auto">
-            Get a humorous yet helpful critique of your resume or project
-          </p>
-        </div>
+      <div className="container  ">
+        <button
+          onClick={handleGoBack}
+          className="flex items-center cursor-pointer text-white transition-colors"
+        >
+          <ChevronLeft size={20} />
+          <span>Back</span>
+        </button>
+      </div>
+      <header className="py-10 px-4 ">
+      <div className="max-w-4xl mx-auto text-center">
+  <div className="flex items-center justify-center gap-2">
+    <h1 className="text-4xl font-bold text-white mb-2">Roast My Stuff</h1>
+    <Flame className="w-12 h-12 text-orange-400" />
+  </div>
+  <p className="text-white text-opacity-90 text-lg max-w-xl mx-auto">
+    Get a humorous yet helpful critique of your resume or project
+  </p>
+</div>
+
       </header>
 
       <main className="flex-1 py-2 px-4">
@@ -185,7 +202,7 @@ function RoastMyStuff() {
                 </button>
               </form>
             ) : (
-              <form onSubmit={handleProjectSubmit} className="space-y-6">
+              <form onSubmit={handleProjectSubmit} className="space-y-2">
                 <h2 className="text-xl font-semibold text-gray-300 mb-4">Share Your Project</h2>
 
                 <div>
@@ -202,7 +219,7 @@ function RoastMyStuff() {
 
                 <div>
                   <label className="block text-gray-300 font-medium mb-2">
-                    Project Link (optional)
+                    Project Link
                   </label>
                   <input
                     type="url"
@@ -258,7 +275,16 @@ function RoastMyStuff() {
             )}
           </div>
         </div>
+        
       </main>
+      <footer className=" py-4 mt-auto">
+        <div className="container mx-auto px-2 text-center text-gray-400">
+          <p>
+            Roast My Stuff • Get brutally honest feedback with a sense of humor
+          </p>
+        </div>
+      </footer>
+      
     </div>
   );
 }

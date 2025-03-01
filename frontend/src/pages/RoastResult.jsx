@@ -42,16 +42,16 @@ function RoastResult() {
   };
 
   const handleGoBack = () => {
-    navigate(-1);
+    navigate('/upload');
   };
 
   if (!result) {
     return (
-      <div className="min-h-screen font-sans flex flex-col text-white bg-zinc-950">
-        <div className="container mx-auto px-4 py-4">
+      <div className="min-h-screen font-sans flex flex-col text-white ">
+        <div className="container cursor-pointer mx-auto px-4 py-4">
           <button
             onClick={handleGoBack}
-            className="flex items-center transition-colors mb-6"
+            className="flex items-center cursor-pointer transition-colors mb-6"
           >
             <ChevronLeft size={20} />
             <span>Back</span>
@@ -67,7 +67,7 @@ function RoastResult() {
                 Looks like you got here without submitting anything to roast.
               </p>
               <Link
-                to="/"
+                to="/upload"
                 className="inline-flex items-center text-purple-500 hover:text-purple-400"
               >
                 <ArrowLeft size={16} className="mr-1" />
@@ -86,7 +86,7 @@ function RoastResult() {
       <div className="container mx-auto px-4 py-4">
         <button
           onClick={handleGoBack}
-          className="flex items-center text-purple-400 hover:text-purple-300 transition-colors"
+          className="flex items-center cursor-pointer text-purple-400 hover:text-purple-300 transition-colors"
         >
           <ChevronLeft size={20} />
           <span>Back</span>

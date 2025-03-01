@@ -156,6 +156,6 @@ app.post("/api/roast-project", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(5000, () => {
+  console.log('Server started on port 5500');
 });
