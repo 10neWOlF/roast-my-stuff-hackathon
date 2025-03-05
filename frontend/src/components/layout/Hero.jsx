@@ -6,36 +6,55 @@ import "../../utils/global.css";
 
 const Hero = () => {
   return (
-    <div className="min-h-screen md:min-h-screen flex flex-col items-center justify-center">
-      <main className="container mx-auto px-4 sm:px-6 pt-0 sm:pt-6 md:pt-0 pb-8 sm:pb-12">
-        <div className="flex flex-col items-center justify-center gap-8">
-          <h1 className="text-5xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4 sm:mb-6 gradient-text flex items-center">
-            Roast My Stuff <Flame className="w-14 h-14 text-orange-400 mr-2" />
+    <div className="min-h-screen flex items-center justify-center px-2 -mt-16">
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        {/* Left Side - Text Content */}
+        <div className="text-center lg:text-left sm:text-left space-y-6">
+          <h1 className="text-4xl  gradient-text sm:text-3xl md:text-5xl font-bold tracking-tight">
+            Get Your Work Roasted With a Side of Wisdom
           </h1>
 
-          <p className="text-gray-300 text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-lg mx-auto">
-            Upload your resume, website, or portfolio and let our AI give you a
-            hilarious and brutally honest roast. Because sometimes you need
-            tough love to improve.
+          <p className="text-gray-300 text-lg max-w-xl mx-auto lg:mx-0">
+            Upload your resume, GitHub repo, or portfolio and receive
+            AI-generated roasts that are both hilarious and helpful.
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mb-8 sm:mb-12">
+          <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
             <Link to="/upload" className="w-full sm:w-auto">
-              <Button className="w-full sm:w-auto cursor-pointer bg-white text-black hover:bg-gray-200 px-6 py-6 rounded-lg transition-all duration-300">
-                Upload Your Stuff
-                <Flame className="w-6 h-6 ml-2 text-red-500" />
+              <Button className="w-full sm:w-auto cursor-pointer bg-white text-black hover:bg-gray-200 px-6 py-6 rounded-md transition-all duration-300 text-base">
+                <Flame className="w-6 h-6 ml-2 text-red-500" /> Start Roasting
               </Button>
             </Link>
 
-            <Link to="/docs" className="w-full sm:w-auto">
-              <Button className="w-full sm:w-auto cursor-pointer text-white bg-black group hover:bg-black flex items-center justify-center gap-2 px-6 py-6 rounded-lg transition-all duration-300">
-                See Roast Examples
-                <ChevronRight className="w-8 h-8 transform transition-transform group-hover:translate-x-1 duration-300" />
+            <Link to="/roast-stuff" className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto cursor-pointer text-white bg-black group hover:bg-black flex items-center justify-center gap-2 px-6 py-6 rounded-md transition-all duration-300">
+                View Examples
+                <ChevronRight className="w-5 h-5 transform transition-transform group-hover:translate-x-1 duration-300" />
               </Button>
             </Link>
           </div>
         </div>
-      </main>
+
+        {/* Right Side  */}
+        <div className="flex items-center justify-center">
+          <div className="relative h-[350px] w-full overflow-hidden rounded-xl bg-black/40 backdrop-blur-sm border border-white/10">
+            <div className="absolute inset-0">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="space-y-2 p-6 text-center text-white">
+                  <div className="inline-block rounded-lg bg-white bg-opacity-20 text-black px-3 py-1 text-sm">
+                    Example Roast
+                  </div>
+                  <p className="text-xl font-medium">
+                    "Your GitHub profile has fewer commits than a
+                    commitment-phobe on a dating app. Let's fix that!"
+                  </p>
+                  <p className="text-sm">Intensity: 🔥 Spicy</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

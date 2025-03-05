@@ -7,6 +7,15 @@ import {
   BookOpen,
   Flame,
   ChevronRight,
+  Github,
+  Lightbulb,
+  Users,
+  ThumbsUp,
+  Laugh,
+  Upload,
+  Zap,
+  MessageSquare,
+  CheckCircle,
 } from "lucide-react";
 import "../../utils/global.css";
 import { Link } from "react-router-dom";
@@ -16,12 +25,14 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
   <Card className="bg-zinc-950 border-zinc-800 hover:border-zinc-700 transition-colors">
     <CardContent className="p-4 sm:p-6">
       <div className="flex flex-col gap-3 sm:gap-4">
-        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-purple-900/30 flex items-center justify-center">
-          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-purple-900/30 flex items-center justify-center">
+            <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+          </div>
+          <h3 className="text-base sm:text-lg font-semibold text-white">
+            {title}
+          </h3>
         </div>
-        <h3 className="text-base sm:text-lg font-semibold text-white">
-          {title}
-        </h3>
         <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">
           {description}
         </p>
@@ -33,22 +44,65 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
 const Main = () => {
   const features = [
     {
-      icon: FileText,
-      title: "Resume Roast",
+      icon: Flame,
+      title: "3 Roast Levels",
       description:
-        'Let AI tear apart your resume and point out those "creative" job titles and "ninja" skills.',
+        "Choose from Mild, Spicy, or Extra Burn depending on how much heat you can handle.",
+    },
+    {
+      icon: FileText,
+      title: "Resume Analysis",
+      description:
+        "Upload your resume and get detailed feedback on formatting, content, and impact.",
+    },
+    {
+      icon: Github,
+      title: "GitHub Critique",
+      description:
+        "Share your GitHub profile for insights on projects, commit patterns, and documentation.",
     },
     {
       icon: Globe,
-      title: "Website Roast",
+      title: "Portfolio Review",
       description:
-        "Get your website critiqued by an AI that doesn't care about your feelings, just your UX.",
+        "Get your portfolio website analyzed for design, UX, and content effectiveness.",
     },
     {
-      icon: Briefcase,
-      title: "Portfolio Roast",
+      icon: ThumbsUp,
+      title: "Progress Tracking",
+      description: "Track improvements over time as you implement suggestions.",
+    },
+    {
+      icon: Laugh,
+      title: "Humor That Helps",
       description:
-        "Have your portfolio judged by an AI that's seen everything and is not impressed easily.",
+        "Learn through laughter with roasts that entertain while educating.",
+    },
+  ];
+
+  const steps = [
+    {
+      icon: <Upload className="h-10 w-10 text-primary" />,
+      title: "Upload Your Work",
+      description:
+        "Share your resume, GitHub profile, or portfolio website link.",
+    },
+    {
+      icon: <Zap className="h-10 w-10 text-primary" />,
+      title: "Choose Roast Level",
+      description: "Select from Mild, Spicy, or Extra Burn intensity levels.",
+    },
+    {
+      icon: <MessageSquare className="h-10 w-10 text-primary" />,
+      title: "Get Roasted",
+      description:
+        "Receive AI-generated feedback that's both funny and insightful.",
+    },
+    {
+      icon: <CheckCircle className="h-10 w-10 text-primary" />,
+      title: "Implement & Improve",
+      description:
+        "Use the actionable advice to enhance your professional materials.",
     },
   ];
 
@@ -58,9 +112,9 @@ const Main = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8 sm:mb-12">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 sm:mb-4">
-              Get <span className="gradient-text">roasted</span>
-              <br className="sm:hidden" /> and{" "}
-              <span className="gradient-text">improved.</span>
+              <span className="gradient-text">
+                Features That Burn and Build
+              </span>
             </h1>
             <p className="text-lg sm:text-xl gradient-text">
               Upload your resume, website, or portfolio and let our AI give you
@@ -83,35 +137,58 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="text-white py-8 sm:py-10 px-4 sm:px-6">
-        <div className="text-center  mb-10 sm:mb-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold gradient-text mb-6 sm:mb-8">
-            <span className="gradient-text">Get Roasted.</span>
-            <br />
-            <span className="gradient-text">Get Better.</span>
-          </h1>
+      <section className="w-full py-10 md:py-20  mb-10">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter gradient-text sm:text-4xl md:text-5xl">
+                How It Works
+              </h2>
+              <p className="mx-auto max-w-[700px] gradient-text md:text-xl">
+                Four simple steps to get roasted and improve your professional
+                presence.
+              </p>
+            </div>
+          </div>
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 pt-12">
+            {steps.map((step, index) => (
+              <div key={index} className="flex flex-col items-center space-y-4">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/100">
+                  {step.icon}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold">{step.title}</h3>
+                  <p className="text-center gradient-text">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mb-8 sm:mb-12">
+      <div className="flex items-center justify-center text-white mb-10">
+        <div className="text-center max-w-2xl px-4">
+          <h1 className="text-5xl font-bold mb-4">Ready to Get Roasted?</h1>
+          <p className="text-xl text-gray-300 mb-8">
+            Upload your resume, GitHub repo, or portfolio and get honest
+            feedback with a side of humor.
+          </p>
+          <div className="flex justify-center space-x-4">
             <Link to="/upload" className="w-full sm:w-auto">
-              <Button className="w-full sm:w-auto cursor-pointer bg-white text-black hover:bg-gray-200 px-6 py-6 rounded-lg transition-all duration-300">
-                Upload Your Stuff
-                <Flame className="w-6 h-6 ml-2 text-red-500" />
+              <Button className="w-full sm:w-auto cursor-pointer bg-white text-black hover:bg-gray-200 px-6 py-6 rounded-md transition-all duration-300 text-base">
+                <Flame className="w-6 h-6 ml-2 text-red-500" /> Get Started
               </Button>
             </Link>
 
-            <Link to="/docs" className="w-full sm:w-auto">
-              <Button className="w-full sm:w-auto cursor-pointer text-white bg-black group hover:bg-black flex items-center justify-center gap-2 px-6 py-6 rounded-lg transition-all duration-300">
-                See Roast Examples
-                <ChevronRight className="w-8 h-8 transform transition-transform group-hover:translate-x-1 duration-300" />
+            <Link to="/roast-stuff" className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto cursor-pointer text-white bg-black group hover:bg-black flex items-center justify-center gap-2 px-6 py-6 rounded-md transition-all duration-300">
+                View Examples
+                <ChevronRight className="w-5 h-5 transform transition-transform group-hover:translate-x-1 duration-300" />
               </Button>
             </Link>
           </div>
-
-          <p className="text-center text-sm sm:text-base gradient-text mx-auto w-full sm:w-4/5 md:w-1/2 leading-relaxed">
-            Share your resume, website, or portfolio and receive a brutally
-            honest roast from our AI. Improve your skills with actionable
-            feedback and join a community that roasts to help each other grow.
-          </p>
         </div>
       </div>
     </>

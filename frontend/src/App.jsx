@@ -7,6 +7,7 @@ import WorkFlow from "./pages/WorkFlow";
 import Upload from "./pages/RoastMyStuff";
 import RoastMyStuff from "./pages/RoastMyStuff";
 import RoastResult from "./pages/RoastResult";
+import RoastStuff from "./pages/RoastStuff";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/result",
     element: <RoastResult />,
+  },
+  {
+    path: "/roast-stuff",
+    element: <RoastStuff />,
   },
 ]);
 

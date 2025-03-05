@@ -1,25 +1,47 @@
 import React, { useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, Flame } from "lucide-react";
+import html2canvas from "html2canvas";
 
 function RoastResult() {
   const location = useLocation();
   const navigate = useNavigate();
   const result = location.state?.result;
 
-  const [copied, setCopied] = useState(false);
+  const handleDownload = async () => {
+    const roastElement = document.getElementById("roast-content");
 
-  const handleCopy = () => {
-    if (navigator.clipboard && result.roast) {
-      navigator.clipboard.writeText(result.roast).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
-      });
+    if (!roastElement) {
+      console.error("Element not found");
+      return;
+    }
+
+    try {
+      // Wait to ensure the element is fully rendered
+      setTimeout(async () => {
+        const canvas = await html2canvas(roastElement, {
+          useCORS: true, // Handle cross-origin images
+          scale: window.devicePixelRatio, // Better quality
+          backgroundColor: null, // Ensure transparency support
+        });
+
+        const image = canvas.toDataURL("image/png");
+
+        // Create a link and trigger download
+        const link = document.createElement("a");
+        link.href = image;
+        link.download = "roast.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }, 300); // Delay slightly to allow rendering
+    } catch (error) {
+      console.error("Error downloading image:", error);
     }
   };
 
   const getRoastEmoji = (level) => {
-    const flameSize = 24; // Adjust size as needed
+    const flameSize = 24;
 
     const flames = {
       mild: [<Flame key="1" size={flameSize} className="text-orange-400" />],
@@ -42,7 +64,7 @@ function RoastResult() {
   };
 
   const handleGoBack = () => {
-    navigate('/upload');
+    navigate("/upload");
   };
 
   if (!result) {
@@ -106,13 +128,10 @@ function RoastResult() {
       </header>
 
       <main className="flex-1 py-8 md:py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          {" "}
-          {/* Increased max width for large screens */}
+        <div id="roast-content" className="max-w-4xl mx-auto">
           <div className="bg-zinc-950 rounded-lg shadow-xl p-6 md:p-10 mb-8 border border-zinc-800 transform transition-all duration-300 hover:shadow-2xl">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-200">
-                Your{" "}
                 {result.intensity?.charAt(0).toUpperCase() +
                   result.intensity?.slice(1) ||
                   result.roastLevel.charAt(0).toUpperCase() +
@@ -125,29 +144,25 @@ function RoastResult() {
             </div>
 
             <div className="border-t border-gray-700 pt-6">
-              <p className="text-gray-300 whitespace-pre-line text-base md:text-lg lg:text-xl leading-relaxed">
+              <p className="text-gray-300 whitespace-pre-line text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed font-medium">
                 {result.roast}
               </p>
             </div>
 
             <div className="mt-10 pt-6 border-t border-gray-700 flex justify-between items-center">
               <Link
-                to="/"
-                className="inline-flex items-center text-purple-500 hover:text-purple-400 text-base md:text-lg transition-colors"
+                to="/upload"
+                className="inline-flex items-center text-purple-500 hover:text-purple-400 text-sm sm:text-base md:text-lg transition-colors"
               >
                 <ArrowLeft size={20} className="mr-2" />
                 Roast something else
               </Link>
 
               <button
-                onClick={handleCopy}
-                className={`px-4 py-2 cursor-pointer rounded-md transition-colors ${
-                  copied
-                    ? "text-green-500 bg-zinc-800" // 
-                    : "bg-zinc-900 hover:bg-zinc-800 text-gray-200"
-                }`}
+                onClick={handleDownload}
+                className="px-4 py-2 cursor-pointer rounded-md transition-colors bg-zinc-900 hover:bg-zinc-800 text-gray-200 text-sm sm:text-base md:text-lg"
               >
-                {copied ? "Copied!" : "Copy to clipboard"}
+                Download Roast
               </button>
             </div>
           </div>
