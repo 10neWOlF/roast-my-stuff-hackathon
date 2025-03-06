@@ -18,10 +18,7 @@ const router = createBrowserRouter([
     ),
     errorElement: <PageNotFound />,
   },
-  {
-    path: "/workflow",
-    element: <WorkFlow />,
-  },
+
   {
     path: "/upload",
     element: <RoastMyStuff />,

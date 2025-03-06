@@ -13,7 +13,7 @@ const RoastStuff = () => {
         <div className="container cursor-pointer mx-auto px-4 py-4">
           <button
             onClick={handleGoBack}
-            className="flex items-center cursor-pointer transition-colors mb-6"
+           className="flex items-center cursor-pointer gap-2 bg-zinc-900 hover:bg-zinc-800 hover:text-white py-2 px-4 rounded-lg border border-zinc-800 transition-colors text-gray font-medium "
           >
             <ChevronLeft size={20} />
             <span>Back</span>

@@ -6,9 +6,9 @@ import "../../utils/global.css";
 
 const Hero = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center px-2 -mt-16">
+    <div className="min-h-screen flex items-center justify-center px-2 mt-16 sm:-mt-16">
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Left Side - Text Content */}
+        {/* Left Side*/}
         <div className="text-center lg:text-left sm:text-left space-y-6">
           <h1 className="text-4xl  gradient-text sm:text-3xl md:text-5xl font-bold tracking-tight">
             Get Your Work Roasted With a Side of Wisdom
@@ -41,14 +41,14 @@ const Hero = () => {
             <div className="absolute inset-0">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="space-y-2 p-6 text-center text-white">
-                  <div className="inline-block rounded-lg bg-white bg-opacity-20 text-black px-3 py-1 text-sm">
+                  <div className="inline-block rounded-lg font-medium bg-white bg-opacity-20 text-black px-3 py-1 text-sm">
                     Example Roast
                   </div>
                   <p className="text-xl font-medium">
                     "Your GitHub profile has fewer commits than a
                     commitment-phobe on a dating app. Let's fix that!"
                   </p>
-                  <p className="text-sm">Intensity: 🔥 Spicy</p>
+                  <p className="text-sm font-medium">Intensity: 🔥 Spicy</p>
                 </div>
               </div>
             </div>

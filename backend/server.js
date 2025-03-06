@@ -82,15 +82,19 @@ app.post("/api/roast-resume", upload.single("resume"), async (req, res) => {
     } else if (roastLevel === "extra_burn") {
       systemPrompt = "You are a savage resume reviewer with maximum intensity.";
     }
-    const userPrompt = `Roast this resume harshly. Your response must follow this exact format:
-  
-1. A brutal roast (3-5 sentences max) highlighting the major flaws
-2. A brief overall assessment (1-2 sentences)
-3. A rating out of 10
-
-Keep your entire response under 200 words. Be direct and savage:
-
-${extractedText}`;
+    const userPrompt = `Roast this resume harshly. Your response must follow this exact JSON format with the following fields:
+    
+    {
+      "roast": "A brutal overall roast (3-5 sentences max) highlighting the major flaws",
+      "rating": "A rating out of 10",
+      "keyIssues": ["Issue 1", "Issue 2", "Issue 3"],
+      "actionItems": ["Action 1", "Action 2", "Action 3"]
+    }
+    
+    Provide exactly 3 key issues and 3 action items. Keep your roast under 150 words. Be direct and savage.
+    
+    Resume Content:
+    ${extractedText}`;
 
     const response = await axios.post(
       OPENROUTER_API_URL,
@@ -101,6 +105,7 @@ ${extractedText}`;
           { role: "user", content: userPrompt },
         ],
         max_tokens: 2048,
+        response_format: { type: "json_object" },
       },
       {
         headers: {
@@ -111,8 +116,37 @@ ${extractedText}`;
     );
 
     console.log("OpenRouter response:", response.data);
+    
+    let formattedResponse;
+    try {
+      // Try to parse the response as JSON
+      const content = response.data.choices[0].message.content;
+      formattedResponse = JSON.parse(content);
+      formattedResponse.title = "Resume Roast";
+    } catch (parseError) {
+      console.error("Error parsing JSON response:", parseError);
+      // Fallback to text parsing if JSON parsing fails
+      const content = response.data.choices[0].message.content;
+      
+      // Create a structured response
+      formattedResponse = {
+        title: "Resume Roast",
+        roast: content,
+        rating: "N/A",
+        keyIssues: [
+          "Could not parse structured feedback",
+          "Review the full roast for details",
+          "Try submitting again for better results"
+        ],
+        actionItems: [
+          "Consider the points mentioned in the roast",
+          "Submit a clearer resume format",
+          "Use the roast feedback to make improvements"
+        ]
+      };
+    }
 
-    res.json({ roast: response.data.choices[0].message.content });
+    res.json(formattedResponse);
   } catch (error) {
     console.error("Error roasting resume:", error);
     res
@@ -137,7 +171,6 @@ app.post("/api/roast-project", async (req, res) => {
       return res.status(400).json({ error: "Both project description and project link are required." });
     }
 
-
     let systemPrompt =
       "You are an expert at reviewing and roasting project ideas.";
     if (roastLevel === "spicy") {
@@ -147,13 +180,16 @@ app.post("/api/roast-project", async (req, res) => {
       systemPrompt =
         "You are a savage expert at roasting project ideas with maximum intensity.";
     }
-    const userPrompt = `Roast this project idea harshly. Your response must follow this exact format:
-
-    1. A brutal roast (3-5 sentences max) highlighting the major flaws
-    2. A brief overall assessment (1-2 sentences)
-    3. A rating out of 10
+    const userPrompt = `Roast this project idea harshly. Your response must follow this exact JSON format with the following fields:
     
-    Keep your entire response under 200 words. Be direct and savage:
+    {
+      "roast": "A brutal overall roast (3-5 sentences max) highlighting the major flaws",
+      "rating": "A rating out of 10",
+      "keyIssues": ["Issue 1", "Issue 2", "Issue 3"],
+      "actionItems": ["Action 1", "Action 2", "Action 3"]
+    }
+    
+    Provide exactly 3 key issues and 3 action items. Keep your roast under 150 words. Be direct and savage.
     
     Project Description: ${projectDescription}
     Project Link: ${projectLink}`;
@@ -167,6 +203,7 @@ app.post("/api/roast-project", async (req, res) => {
           { role: "user", content: userPrompt },
         ],
         max_tokens: 2048,
+        response_format: { type: "json_object" },
       },
       {
         headers: {
@@ -176,7 +213,36 @@ app.post("/api/roast-project", async (req, res) => {
       }
     );
 
-    res.json({ roast: response.data.choices[0].message.content });
+    let formattedResponse;
+    try {
+      // Try to parse the response as JSON
+      const content = response.data.choices[0].message.content;
+      formattedResponse = JSON.parse(content);
+      formattedResponse.title = "Project Roast";
+    } catch (parseError) {
+      console.error("Error parsing JSON response:", parseError);
+      // Fallback to text parsing if JSON parsing fails
+      const content = response.data.choices[0].message.content;
+      
+      // Create a structured response
+      formattedResponse = {
+        title: "Project Roast",
+        roast: content,
+        rating: "N/A",
+        keyIssues: [
+          "Could not parse structured feedback",
+          "Review the full roast for details",
+          "Try submitting again for better results"
+        ],
+        actionItems: [
+          "Consider the points mentioned in the roast",
+          "Provide clearer project details",
+          "Use the roast feedback to improve your project"
+        ]
+      };
+    }
+
+    res.json(formattedResponse);
   } catch (error) {
     console.error("Error roasting project:", error);
     res

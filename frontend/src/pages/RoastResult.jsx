@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ChevronLeft, Flame } from "lucide-react";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  Flame,
+  AlertCircle,
+  CheckCircle,
+  Download,
+  Share,
+  Twitter,
+} from "lucide-react";
 import html2canvas from "html2canvas";
+import downloadjs from "downloadjs";
 
 function RoastResult() {
   const location = useLocation();
@@ -18,41 +28,75 @@ function RoastResult() {
 
     try {
       // Wait to ensure the element is fully rendered
-      setTimeout(async () => {
-        const canvas = await html2canvas(roastElement, {
-          useCORS: true, // Handle cross-origin images
-          scale: window.devicePixelRatio, // Better quality
-          backgroundColor: null, // Ensure transparency support
-        });
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Increased delay
 
-        const image = canvas.toDataURL("image/png");
+      const canvas = await html2canvas(roastElement, {
+        useCORS: true, // Handle cross-origin images
+        scale: window.devicePixelRatio, // Better quality
+        backgroundColor: null, // Ensure transparency support
+      });
 
-        // Create a link and trigger download
-        const link = document.createElement("a");
-        link.href = image;
-        link.download = "roast.png";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }, 300); // Delay slightly to allow rendering
+      const image = canvas.toDataURL("image/png");
+
+      // Create a link and trigger download
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "roast.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (error) {
       console.error("Error downloading image:", error);
     }
   };
 
+  const handleShare = (platform) => {
+    if (!result) {
+      console.warn("No roast result to share.");
+      return;
+    }
+  
+
+    const roastRating = result.rating || "No rating available.";
+    const roastLevel = result.roastLevel
+      ? result.roastLevel.replace("_", " ").charAt(0).toUpperCase() +
+        result.roastLevel.replace("_", " ").slice(1)
+      : "Mild"; 
+  
+    const shareText = `🔥 Check out my Roast Result! 🔥\n\n` +
+                      `📌 Roast Result: https://roast-my-stuff.app/result\n` +
+                      `🔥 Roast Level: ${roastLevel}\n` +
+                      `⭐ Rating: ${roastRating}\n\n` +
+                      `Roast your own stuff now! 👉 https://roast-my-stuff.app/`;
+  
+    const encodedText = encodeURIComponent(shareText);
+    let shareUrl = "";
+  
+    switch (platform) {
+      case "twitter":
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
+        break;
+        console.error("Unsupported share platform:", platform);
+        return;
+    }
+  
+    window.open(shareUrl, "_blank");
+  };
+  
+
   const getRoastEmoji = (level) => {
     const flameSize = 24;
 
     const flames = {
-      mild: [<Flame key="1" size={flameSize} className="text-orange-400" />],
+      mild: [<Flame key="1" size={flameSize} className="text-orange-500" />],
       spicy: [
-        <Flame key="1" size={flameSize} className="text-orange-400" />,
-        <Flame key="2" size={flameSize} className="text-orange-400" />,
+        <Flame key="1" size={flameSize} className="text-orange-500" />,
+        <Flame key="2" size={flameSize} className="text-orange-500" />,
       ],
       extra_burn: [
-        <Flame key="1" size={flameSize} className="text-orange-400" />,
-        <Flame key="2" size={flameSize} className="text-orange-400" />,
-        <Flame key="3" size={flameSize} className="text-orange-400" />,
+        <Flame key="1" size={flameSize} className="text-orange-500" />,
+        <Flame key="2" size={flameSize} className="text-orange-500" />,
+        <Flame key="3" size={flameSize} className="text-orange-500" />,
       ],
     };
 
@@ -67,13 +111,28 @@ function RoastResult() {
     navigate("/upload");
   };
 
+  // Default values in case the API doesn't return the expected structure
+  const keyIssues = result?.keyIssues || [
+    "No specific issues identified",
+    "Check the main roast for details",
+    "Submit again for more specific feedback",
+  ];
+
+  const actionItems = result?.actionItems || [
+    "Review the main roast for improvement suggestions",
+    "Consider resubmitting with more details",
+    "Focus on addressing the primary feedback points",
+  ];
+
+  const rating = result?.rating || "N/A";
+
   if (!result) {
     return (
-      <div className="min-h-screen font-sans flex flex-col text-white ">
+      <div className="min-h-screen font-sans flex flex-col rounded-md text-white ">
         <div className="container cursor-pointer mx-auto px-4 py-4">
           <button
             onClick={handleGoBack}
-            className="flex items-center cursor-pointer transition-colors mb-6"
+            className="flex items-center cursor-pointer gap-2 bg-zinc-900 hover:bg-zinc-800 hover:text-white py-2 px-4 rounded-lg border border-zinc-800 transition-colors text-gray font-medium "
           >
             <ChevronLeft size={20} />
             <span>Back</span>
@@ -81,7 +140,7 @@ function RoastResult() {
         </div>
         <main className="flex-1 py-12 px-4">
           <div className="max-w-xl mx-auto">
-            <div className="bg-zinc-950 rounded-lg shadow-lg p-6 mb-8 border border-gray-700">
+            <div className="bg-zinc-900 rounded-lg shadow-lg p-6 mb-8 border border-gray-700">
               <h2 className="text-xl md:text-2xl font-semibold text-gray-300 mb-4">
                 No result found
               </h2>
@@ -103,73 +162,157 @@ function RoastResult() {
   }
 
   return (
-    <div className="min-h-screen font-sans flex flex-col text-white ">
-      {/* Back button in top left */}
+    <div className="min-h-screen rounded-md font-sans flex flex-col text-white bg-zinc-950">
+      {/* Header and navigation */}
       <div className="container mx-auto px-4 py-4">
-        <button
-          onClick={handleGoBack}
-          className="flex items-center cursor-pointer text-purple-400 hover:text-purple-300 transition-colors"
-        >
-          <ChevronLeft size={20} />
-          <span>Back</span>
-        </button>
+        <div className="flex justify-between items-center">
+          <button
+            onClick={handleGoBack}
+            className="flex items-center cursor-pointer gap-2 bg-zinc-900 hover:bg-zinc-800 hover:text-white py-2 px-4 rounded-lg border border-zinc-800 transition-colors text-gray font-medium "
+          >
+            <ArrowLeft size={16} />
+            <span>Back</span>
+          </button>
+
+          <div className="flex space-x-2">
+            <button
+              onClick={handleDownload}
+              className="flex items-center cursor-pointer gap-2 bg-zinc-900 hover:bg-zinc-800 hover:text-white py-2 px-4 rounded-lg border border-zinc-800 transition-colors text-gray font-medium "
+            >
+              <Download size={16} />
+              <span>Download</span>
+            </button>
+            <button
+              onClick={() => handleShare("twitter")}
+              className="flex items-center cursor-pointer gap-2 bg-zinc-900 hover:bg-zinc-800 hover:text-white py-2 px-4 rounded-lg border border-zinc-800 transition-colors text-gray font-medium "
+            >
+              <Twitter size={16} />
+
+              <span>Tweet</span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <header className="py-8 md:py-16 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
-            Your Roast Results
+      <main className="flex-1 py-8 px-4 max-w-6xl mx-auto w-full">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <ChevronLeft
+              size={20}
+              className="text-gray-400 cursor-pointer"
+              onClick={handleGoBack}
+            />
+            {result.title ||
+              (result.contentType === "resume"
+                ? "Resume Roast"
+                : "Project Roast")}
           </h1>
-          <p className="text-white text-opacity-90 text-lg md:text-xl max-w-2xl mx-auto flex items-center justify-center">
-            Here's your {result.roastLevel.replace("_", " ")} roast{" "}
-            {getRoastEmoji(result.roastLevel)}
-          </p>
         </div>
-      </header>
 
-      <main className="flex-1 py-8 md:py-16 px-4">
-        <div id="roast-content" className="max-w-4xl mx-auto">
-          <div className="bg-zinc-950 rounded-lg shadow-xl p-6 md:p-10 mb-8 border border-zinc-800 transform transition-all duration-300 hover:shadow-2xl">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-200">
-                {result.intensity?.charAt(0).toUpperCase() +
-                  result.intensity?.slice(1) ||
-                  result.roastLevel.charAt(0).toUpperCase() +
-                    result.roastLevel.slice(1).replace("_", " ")}{" "}
-                Roast
-              </h2>
-              <div className="text-2xl md:text-3xl">
-                {getRoastEmoji(result.roastLevel)}
+        <div id="roast-content" className="space-y-6">
+          {/* The Roast Section */}
+          <div className="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
+            <div className="p-4 border-b border-zinc-800 flex justify-between items-center">
+              <div className="flex items-center">
+                <span className="mr-2">
+                  <Flame
+                    className="text-orange-500 mr-2 mt-1 flex-shrink-0"
+                    size={20}
+                  />
+                </span>
+                <h2 className="text-xl font-semibold">The Roast</h2>
+              </div>
+              <div className="bg-green-900/30 text-green-500 font-medium py-1 px-3 rounded-full text-sm flex items-center gap-1">
+                <span>
+                  {result.roastLevel
+                    ?.replace("_", " ")
+                    .charAt(0)
+                    .toUpperCase() +
+                    result.roastLevel?.replace("_", " ").slice(1) || "Mild"}
+                </span>
+                {getRoastEmoji(result.roastLevel || "mild")}
+              </div>
+            </div>
+            <div className="p-6 bg-zinc-950/50">
+              <div className="flex flex-col">
+                <div className="flex items-start">
+                  {/* <Flame
+                    className="text-orange-500 mr-2 mt-1 flex-shrink-0"
+                    size={20}
+                  /> */}
+                  <p className="text-gray-300 italic">{result.roast}</p>
+                </div>
+
+                {rating && rating !== "N/A" && (
+                  <div className="mt-4 text-right">
+                    <span className="text-gray-400 text-sm">Rating: </span>
+                    <span className="text-orange-400 font-bold">{rating}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Key Issues and Action Items Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Key Issues */}
+            <div className="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
+              <div className="p-4 border-b border-zinc-800">
+                <div className="flex items-center">
+                  <AlertCircle className="text-orange-500 mr-2" size={20} />
+                  <h2 className="text-xl font-semibold">Key Issues</h2>
+                </div>
+              </div>
+              <div className="p-4">
+                <ul className="space-y-4">
+                  {keyIssues.map((issue, index) => (
+                    <li key={index} className="flex">
+                      <span className="flex-shrink-0 bg-orange-500/20 text-orange-400 rounded-full h-6 w-6 flex items-center justify-center mr-3">
+                        {index + 1}
+                      </span>
+                      <span className="text-gray-300">{issue}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            <div className="border-t border-gray-700 pt-6">
-              <p className="text-gray-300 whitespace-pre-line text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed font-medium">
-                {result.roast}
-              </p>
+            {/* Action Items */}
+            <div className="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
+              <div className="p-4 border-b border-zinc-800">
+                <div className="flex items-center">
+                  <CheckCircle className="text-green-500 mr-2" size={20} />
+                  <h2 className="text-xl font-semibold">Action Items</h2>
+                </div>
+              </div>
+              <div className="p-4">
+                <ul className="space-y-4">
+                  {actionItems.map((item, index) => (
+                    <li key={index} className="flex">
+                      <span className="flex-shrink-0 bg-green-500/20 text-green-400 rounded-full h-6 w-6 flex items-center justify-center mr-3">
+                        {index + 1}
+                      </span>
+                      <span className="text-gray-300">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
+          </div>
 
-            <div className="mt-10 pt-6 border-t border-gray-700 flex justify-between items-center">
-              <Link
-                to="/upload"
-                className="inline-flex items-center text-purple-500 hover:text-purple-400 text-sm sm:text-base md:text-lg transition-colors"
-              >
-                <ArrowLeft size={20} className="mr-2" />
-                Roast something else
-              </Link>
-
-              <button
-                onClick={handleDownload}
-                className="px-4 py-2 cursor-pointer rounded-md transition-colors bg-zinc-900 hover:bg-zinc-800 text-gray-200 text-sm sm:text-base md:text-lg"
-              >
-                Download Roast
-              </button>
-            </div>
+          {/* Get Another Roast Button */}
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={handleGoBack}
+              className="bg-white text-black font-medium py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              Get Another Roast
+            </button>
           </div>
         </div>
       </main>
 
-      <footer className=" py-6 mt-auto">
+      <footer className="py-6 mt-auto">
         <div className="container mx-auto px-4 text-center text-gray-400">
           <p>
             Roast My Stuff • Get brutally honest feedback with a sense of humor

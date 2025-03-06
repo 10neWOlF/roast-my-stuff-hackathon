@@ -157,7 +157,7 @@ function RoastMyStuff() {
 
           <div className="flex justify-center mb-8">
             <div className="w-16 h-16 relative">
-              <Loader size={64} className="animate-spin text-purple-500" />
+              <Loader size={64} className="animate-spin text-orange-500" />
             </div>
           </div>
 
@@ -187,7 +187,7 @@ function RoastMyStuff() {
       <div className="container">
         <button
           onClick={handleGoBack}
-          className="flex items-center cursor-pointer text-white transition-colors"
+          className="flex items-center cursor-pointer gap-2 bg-zinc-900 hover:bg-zinc-800 hover:text-white py-2 px-4 rounded-lg border border-zinc-800 transition-colors text-gray font-medium "
         >
           <ChevronLeft size={20} />
           <span>Back</span>
@@ -213,7 +213,7 @@ function RoastMyStuff() {
             <button
               className={`flex-1 py-3 px-4 font-medium cursor-pointer transition-colors flex items-center justify-center ${
                 activeTab === "resume"
-                  ? "bg-purple-600 text-white"
+                  ? "bg-zinc-900 text-white"
                   : "bg-zinc-950 text-gray-300 hover:bg-zinc-900"
               }`}
               onClick={() => setActiveTab("resume")}
@@ -224,7 +224,7 @@ function RoastMyStuff() {
             <button
               className={`flex-1 py-3 px-4 font-medium cursor-pointer transition-colors flex items-center justify-center ${
                 activeTab === "project"
-                  ? "bg-purple-600 text-white"
+                  ? "bg-zinc-900 text-white"
                   : "bg-zinc-950 text-gray-300 hover:bg-zinc-900"
               }`}
               onClick={() => setActiveTab("project")}
@@ -297,7 +297,7 @@ function RoastMyStuff() {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-red-500 text-white cursor-pointer py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition-shadow flex items-center justify-center"
+                  className="w-full ccursor-pointer bg-white text-black hover:bg-gray-200 rounded-md  duration-300 text-base py-3 px-4  font-medium shadow-md hover:shadow-lg transition-shadow flex items-center justify-center"
                 >
                   <Zap size={18} className="mr-2" />
                   Roast My Resume
@@ -341,7 +341,7 @@ function RoastMyStuff() {
                   <select
                     value={roastLevel}
                     onChange={(e) => setRoastLevel(e.target.value)}
-                    className="w-full border border-gray-700 rounded-lg p-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-zinc-950"
+                    className="w-full border border-gray-700 rounded-lg p-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-zinc-950 mb-2"
                   >
                     <option value={ROAST_LEVELS.MILD}>Mild Roast 🔥</option>
                     <option value={ROAST_LEVELS.SPICY}>Spicy Roast 🔥🔥</option>
@@ -362,7 +362,7 @@ function RoastMyStuff() {
 
                 <button
                   type="submit"
-                  className="w-full cursor-pointer bg-gradient-to-r from-purple-600 to-red-500 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition-shadow flex items-center justify-center"
+                  className="w-full ccursor-pointer bg-white text-black hover:bg-gray-200 rounded-md  duration-300 text-base py-3 px-4  font-medium shadow-md hover:shadow-lg transition-shadow flex items-center justify-center"
                 >
                   <Zap size={18} className="mr-2" />
                   Roast My Project
