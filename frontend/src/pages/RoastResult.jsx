@@ -19,36 +19,75 @@ function RoastResult() {
   const result = location.state?.result;
 
   const handleDownload = async () => {
-    const roastElement = document.getElementById("roast-content");
-
-    if (!roastElement) {
-      console.error("Element not found");
-      return;
-    }
-
     try {
-      // Wait to ensure the element is fully rendered
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Increased delay
-
-      const canvas = await html2canvas(roastElement, {
-        useCORS: true, // Handle cross-origin images
-        scale: window.devicePixelRatio, // Better quality
-        backgroundColor: null, // Ensure transparency support
+      // Get dimensions of the entire page
+      const body = document.body;
+      const html = document.documentElement;
+  
+      const height = Math.max(
+        body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight
+      );
+  
+      const width = Math.max(
+        body.scrollWidth, body.offsetWidth,
+        html.clientWidth, html.scrollWidth, html.offsetWidth
+      );
+  
+      // Store current scroll position
+      const originalScrollPos = window.pageYOffset;
+  
+      // Create a div that covers the entire page
+      const screenshotDiv = document.createElement('div');
+      screenshotDiv.style.position = 'absolute';
+      screenshotDiv.style.top = '0';
+      screenshotDiv.style.left = '0';
+      screenshotDiv.style.width = `${width}px`;
+      screenshotDiv.style.height = `${height}px`;
+      screenshotDiv.style.zIndex = '-9999';
+      screenshotDiv.style.overflow = 'hidden'; // Ensure no scrollbars appear
+  
+      // Clone the body content into this div
+      const clone = document.body.cloneNode(true);
+  
+      // Remove any fixed position elements that could appear multiple times
+      const fixedElements = clone.querySelectorAll('*[style*="position: fixed"], *[style*="position:fixed"]');
+      fixedElements.forEach(el => {
+        el.style.position = 'absolute';
+        el.style.top = `${parseInt(el.style.top) + originalScrollPos}px`;
       });
-
+  
+      screenshotDiv.appendChild(clone);
+      document.body.appendChild(screenshotDiv);
+  
+      // Scroll to top to ensure we capture from the beginning
+      window.scrollTo(0, 0);
+  
+      // Capture the created div
+      const canvas = await html2canvas(screenshotDiv, {
+        useCORS: true,
+        scale: window.devicePixelRatio,
+        width: width,
+        height: height,
+        backgroundColor: "#000", // Dark background to match theme
+        logging: false,
+        allowTaint: true,
+        foreignObjectRendering: true
+      });
+  
+      // Clean up
+      document.body.removeChild(screenshotDiv);
+  
+      // Restore scroll position
+      window.scrollTo(0, originalScrollPos);
+  
       const image = canvas.toDataURL("image/png");
-
-      // Create a link and trigger download
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = "roast.png";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      downloadjs(image, "roast-screenshot.png", "image/png");
     } catch (error) {
       console.error("Error downloading image:", error);
     }
   };
+  
 
   const handleShare = (platform) => {
     if (!result) {

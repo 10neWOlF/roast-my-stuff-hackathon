@@ -6,12 +6,12 @@ import "../../utils/global.css";
 
 const Hero = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center px-2 mt-16 sm:-mt-16">
+    <div className="min-h-screen flex items-center justify-center px-2 mt-16 sm:-mt-16  md:-mt-16">
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left Side*/}
         <div className="text-center lg:text-left sm:text-left space-y-6">
           <h1 className="text-4xl  gradient-text sm:text-3xl md:text-5xl font-bold tracking-tight">
-            Get Your Work Roasted With a Side of Wisdom
+            Get Your Work <span className="text-red-500">Roasted</span> With a Side of Wisdom
           </h1>
 
           <p className="text-gray-300 text-lg max-w-xl mx-auto lg:mx-0">
@@ -41,13 +41,19 @@ const Hero = () => {
             <div className="absolute inset-0">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="space-y-2 p-6 text-center text-white">
-                  <div className="inline-block rounded-lg font-medium bg-white bg-opacity-20 text-black px-3 py-1 text-sm">
+                  <div className="inline-block rounded-lg font-medium bg-red-600 bg-opacity-20 text-white px-3 py-1 text-sm">
                     Example Roast
                   </div>
                   <p className="text-xl font-medium">
-                    "Your resume has more buzzwords than a corporate meeting. "Synergy" appears 7 times! Are you trying to summon a business demon?"
+                    "Your resume has more buzzwords than a corporate meeting.
+                    "Synergy" appears 7 times! Are you trying to summon a
+                    business demon?"
                   </p>
-                  <p className="text-sm font-medium">Intensity: 🔥 Spicy</p>
+                  <p className="inline-flex items-center bg-green-900/30 text-green-500 font-medium py-1 px-3 rounded-full text-sm gap-1">
+                    Intensity: Spicy
+                    <Flame className="w-5 h-5  text-orange-500" />
+                    <Flame className="w-5 h-5  text-orange-500" />
+                  </p>
                 </div>
               </div>
             </div>
@@ -59,3 +65,10 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
+{/* <h1 className="text-4xl sm:text-3xl md:text-5xl font-bold tracking-tight">
+<span className="gradient-text">Get Your Work</span>
+<span className="text-red-600"> Roasted </span>
+<span className="gradient-text">With a Side of Wisdom</span>
+</h1> */}

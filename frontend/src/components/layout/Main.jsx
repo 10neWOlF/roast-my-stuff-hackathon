@@ -268,7 +268,11 @@ export default Main;
             feedback with a side of humor.
           </p>
             
-            
+            <span className="gradient-text">Features That</span> 
+<span className="text-orange-500"> Burn </span> 
+<span className="gradient-text">and</span> 
+<span className="text-green-500"> Build</span>
+
             
             */
 }
