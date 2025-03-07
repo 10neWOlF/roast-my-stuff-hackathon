@@ -11,7 +11,8 @@ const Hero = () => {
         {/* Left Side*/}
         <div className="text-center lg:text-left sm:text-left space-y-6">
           <h1 className="text-4xl  gradient-text sm:text-3xl md:text-5xl font-bold tracking-tight">
-            Get Your Work <span className="text-red-500">Roasted</span> With a Side of Wisdom
+            Get Your Work <span className="text-red-500">Roasted</span> With a
+            Side of Wisdom
           </h1>
 
           <p className="text-gray-300 text-lg max-w-xl mx-auto lg:mx-0">
@@ -41,12 +42,13 @@ const Hero = () => {
             <div className="absolute inset-0">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="space-y-2 p-6 text-center text-white">
-                <div className="inline-block rounded-lg font-medium bg-white bg-opacity-20 text-black px-3 py-1 text-sm">
+                  <div className="inline-block rounded-lg font-medium bg-white bg-opacity-20 text-black px-3 py-1 text-sm">
                     Example Roast
-                  </div>
+                  </div>
                   <p className="text-xl font-medium">
-                    "Your projects are scarcer than a WiFi signal on a road trip—unstable, frustrating, and in need of a reboot.
-                    Time to re-build!"
+                    "Your projects are scarcer than a WiFi signal on a road
+                    trip—unstable, frustrating, and in need of a reboot. Time to
+                    re-build!"
                   </p>
                   <p className="inline-flex items-center bg-green-900/30 text-green-500 font-medium py-1 px-3 rounded-full text-sm gap-1">
                     Intensity: Spicy
@@ -65,9 +67,10 @@ const Hero = () => {
 
 export default Hero;
 
-
-{/* <h1 className="text-4xl sm:text-3xl md:text-5xl font-bold tracking-tight">
+{
+  /* <h1 className="text-4xl sm:text-3xl md:text-5xl font-bold tracking-tight">
 <span className="gradient-text">Get Your Work</span>
 <span className="text-red-600"> Roasted </span>
 <span className="gradient-text">With a Side of Wisdom</span>
-</h1> */}
+</h1> */
+}
