@@ -1,10 +1,10 @@
 // api/roast-resume.js
-const multer = require('multer');
-const pdfParse = require('pdf-parse');
-const mammoth = require('mammoth');
-const axios = require('axios');
-const cors = require('cors');
-require('dotenv').config();
+const multer = require("multer");
+const pdfParse = require("pdf-parse");
+const mammoth = require("mammoth");
+const axios = require("axios");
+const cors = require("cors");
+require("dotenv").config();
 
 // Memory storage for multer (no filesystem access needed)
 const memoryStorage = multer.memoryStorage();
@@ -14,8 +14,7 @@ const upload = multer({ storage: memoryStorage });
 const corsMiddleware = cors({
   origin: [
     "http://localhost:5173",
-    "https://vercel-frontend-woad.vercel.app",
-    "https://roast-my-stuff-hackathon.vercel.app"
+    "https://roast-my-stuff-hackathon.vercel.app",
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
@@ -40,16 +39,16 @@ const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 module.exports = async (req, res) => {
   // Handle CORS
   await runMiddleware(req, res, corsMiddleware);
-  
+
   // Only allow POST method
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
-  
+
   try {
     // Run multer to process file upload
-    await runMiddleware(req, res, upload.single('resume'));
-    
+    await runMiddleware(req, res, upload.single("resume"));
+
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
@@ -74,7 +73,7 @@ module.exports = async (req, res) => {
     } else if (roastLevel === "extra_burn") {
       systemPrompt = "You are a savage resume reviewer with maximum intensity.";
     }
-    
+
     const userPrompt = `Roast this resume harshly. Your response must follow this exact JSON format with the following fields:
     
     {
@@ -117,7 +116,7 @@ module.exports = async (req, res) => {
     } catch (parseError) {
       // Fallback to text parsing if JSON parsing fails
       const content = response.data.choices[0].message.content;
-      
+
       // Create a structured response
       formattedResponse = {
         title: "Resume Roast",
@@ -126,22 +125,21 @@ module.exports = async (req, res) => {
         keyIssues: [
           "Could not parse structured feedback",
           "Review the full roast for details",
-          "Try submitting again for better results"
+          "Try submitting again for better results",
         ],
         actionItems: [
           "Consider the points mentioned in the roast",
           "Submit a clearer resume format",
-          "Use the roast feedback to make improvements"
-        ]
+          "Use the roast feedback to make improvements",
+        ],
       };
     }
 
     return res.status(200).json(formattedResponse);
-    
   } catch (error) {
     console.error("Error roasting resume:", error);
-    return res.status(500).json({ 
-      error: "An error occurred while processing the resume."
+    return res.status(500).json({
+      error: "An error occurred while processing the resume.",
     });
   }
 };
