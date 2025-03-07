@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     element: <RoastResult />,
   },
   {
-    path: "/roast-stuff",
+    path: "/example",
     element: <RoastStuff />,
   },
 ]);

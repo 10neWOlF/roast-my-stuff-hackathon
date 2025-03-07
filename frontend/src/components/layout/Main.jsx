@@ -230,7 +230,7 @@ const Main = () => {
               </Button>
             </Link>
 
-            <Link to="/roast-stuff" className="w-full sm:w-auto">
+            <Link to="/example" className="w-full sm:w-auto">
               <Button className="w-full sm:w-auto cursor-pointer text-white bg-black group hover:bg-black flex items-center justify-center gap-2 px-6 py-6 rounded-md transition-all duration-300">
                 View Examples
                 <ChevronRight className="w-5 h-5 transform transition-transform group-hover:translate-x-1 duration-300" />

@@ -55,23 +55,23 @@ function RoastResult() {
       console.warn("No roast result to share.");
       return;
     }
-  
 
     const roastRating = result.rating || "No rating available.";
     const roastLevel = result.roastLevel
       ? result.roastLevel.replace("_", " ").charAt(0).toUpperCase() +
         result.roastLevel.replace("_", " ").slice(1)
-      : "Mild"; 
-  
-    const shareText = `🔥 Check out my Roast Result! 🔥\n\n` +
-                      `📌 Roast Result: https://roast-my-stuff.app/result\n` +
-                      `🔥 Roast Level: ${roastLevel}\n` +
-                      `⭐ Rating: ${roastRating}\n\n` +
-                      `Roast your own stuff now! 👉 https://roast-my-stuff.app/`;
-  
+      : "Mild";
+
+    const shareText =
+      `🔥 Check out my Roast Result! 🔥\n\n` +
+      `📌 Roast Result: https://roast-my-stuff.app/result\n` +
+      `🔥 Roast Level: ${roastLevel}\n` +
+      `⭐ Rating: ${roastRating}\n\n` +
+      `Roast your own stuff now! 👉 https://roast-my-stuff.app/`;
+
     const encodedText = encodeURIComponent(shareText);
     let shareUrl = "";
-  
+
     switch (platform) {
       case "twitter":
         shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
@@ -79,10 +79,9 @@ function RoastResult() {
         console.error("Unsupported share platform:", platform);
         return;
     }
-  
+
     window.open(shareUrl, "_blank");
   };
-  
 
   const getRoastEmoji = (level) => {
     const flameSize = 24;
@@ -304,9 +303,10 @@ function RoastResult() {
           <div className="flex justify-center mt-8">
             <button
               onClick={handleGoBack}
-              className="bg-white text-black font-medium py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors"
+              className="flex items-center gap-2 bg-white text-black font-medium py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors"
             >
-              Get Another Roast
+              <Flame className="w-6 h-6 text-red-500" />
+              Another Roast
             </button>
           </div>
         </div>

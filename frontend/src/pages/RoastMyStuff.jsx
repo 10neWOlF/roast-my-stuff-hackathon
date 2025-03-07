@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   Flame,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ROAST_LEVELS = {
   MILD: "mild",
@@ -184,15 +185,23 @@ function RoastMyStuff() {
 
   return (
     <div className="min-h-screen font-sans flex flex-col text-white">
-      <div className="container">
+      <div className="container w-full flex justify-between items-center">
+        {/* Back Button */}
         <button
           onClick={handleGoBack}
-          className="flex items-center cursor-pointer gap-2 bg-zinc-900 hover:bg-zinc-800 hover:text-white py-2 px-4 rounded-lg border border-zinc-800 transition-colors text-gray font-medium "
+          className="flex items-center cursor-pointer gap-2 bg-zinc-900 hover:bg-zinc-800 hover:text-white py-2 px-4 rounded-lg border border-zinc-800 transition-colors text-gray font-medium"
         >
           <ChevronLeft size={20} />
           <span>Back</span>
         </button>
+
+        <Link to="/example">
+          <button className="flex items-center gap-2 cursor-pointer bg-white hover:bg-gray-200 text-black font-medium py-2 px-4 rounded-lg transition-colors">
+            <Flame className="w-6 h-6 text-orange-500" /> View Roast Example
+          </button>
+        </Link>
       </div>
+
       <header className="py-10 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2">
@@ -214,9 +223,11 @@ function RoastMyStuff() {
               className={`flex-1 py-3 px-4 font-medium cursor-pointer transition-colors flex items-center justify-center ${
                 activeTab === "resume"
                   ? "bg-zinc-900 text-white"
-                  : "bg-zinc-950 text-gray-300 hover:bg-zinc-900"
+                  : "bg-zinc-950 text-gray-300 hover:bg-zinc-950"
               }`}
               onClick={() => setActiveTab("resume")}
+              role="tab"
+              aria-selected={activeTab === "resume"}
             >
               <FileText size={18} className="mr-2" />
               Resume
@@ -225,9 +236,11 @@ function RoastMyStuff() {
               className={`flex-1 py-3 px-4 font-medium cursor-pointer transition-colors flex items-center justify-center ${
                 activeTab === "project"
                   ? "bg-zinc-900 text-white"
-                  : "bg-zinc-950 text-gray-300 hover:bg-zinc-900"
+                  : "bg-zinc-950 text-gray-300 hover:bg-zinc-950"
               }`}
               onClick={() => setActiveTab("project")}
+              role="tab"
+              aria-selected={activeTab === "project"}
             >
               <Code size={18} className="mr-2" />
               Project

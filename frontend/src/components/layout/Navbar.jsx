@@ -5,11 +5,15 @@ import { Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <nav className=" py-2 px-2 flex items-center justify-between  sticky top-0 z-50 backdrop-blur">
-      {/* Logo */}
       <div className="flex items-center">
-        <Link to="/" className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2" onClick={scrollToTop} >
           <Flame className="h-6 w-6 text-orange-500" />
           <span className="font-bold text-xl">Roast My Stuff</span>
         </Link>

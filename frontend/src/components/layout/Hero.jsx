@@ -26,7 +26,7 @@ const Hero = () => {
               </Button>
             </Link>
 
-            <Link to="/roast-stuff" className="w-full sm:w-auto">
+            <Link to="/example" className="w-full sm:w-auto">
               <Button className="w-full sm:w-auto cursor-pointer text-white bg-black group hover:bg-black flex items-center justify-center gap-2 px-6 py-6 rounded-md transition-all duration-300">
                 View Examples
                 <ChevronRight className="w-5 h-5 transform transition-transform group-hover:translate-x-1 duration-300" />
@@ -45,8 +45,7 @@ const Hero = () => {
                     Example Roast
                   </div>
                   <p className="text-xl font-medium">
-                    "Your GitHub profile has fewer commits than a
-                    commitment-phobe on a dating app. Let's fix that!"
+                    "Your resume has more buzzwords than a corporate meeting. "Synergy" appears 7 times! Are you trying to summon a business demon?"
                   </p>
                   <p className="text-sm font-medium">Intensity: 🔥 Spicy</p>
                 </div>
