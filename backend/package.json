@@ -31,7 +31,8 @@
     "mammoth": "^1.9.0",
     "multer": "^1.4.5-lts.1",
     "openai": "^4.86.1",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "roast-my-stuff": "file:"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
