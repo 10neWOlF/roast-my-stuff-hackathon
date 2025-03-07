@@ -14,9 +14,8 @@ const port = process.env.PORT || 5000;
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", 
-      "https://roast-my-stuff-hackathon.vercel.app",
-      "https://vercel-frontend-woad.vercel.app",
+      "http://localhost:5173",
+     "https://roast-my-stuff-hackarthon.vercel.app",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
