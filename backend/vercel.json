@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/api/roast-resume",
+        "dest": "/api/roast-resume.js"
+      },
+      {
+        "src": "/api/roast-project",
+        "dest": "/api/roast-project.js"
+      }
+    ]
+  }

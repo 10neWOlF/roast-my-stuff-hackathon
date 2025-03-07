@@ -9,11 +9,15 @@ const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT || 5500;
+const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173", 
+      "https://vercel-frontend-woad.vercel.app",
+      "https://roast-my-stuff-hackathon.vercel.app",
+    ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -54,7 +58,7 @@ app.post("/api/roast-resume", upload.single("resume"), async (req, res) => {
       console.log("No file uploaded");
       return res.status(400).json({ error: "No file uploaded" });
     }
-
+  
     console.log("File uploaded:", req.file);
 
     const { roastLevel } = req.body;

@@ -100,10 +100,10 @@ function RoastResult() {
 
     const shareText =
       `🔥 Check out my Roast Result! 🔥\n\n` +
-      `📌 Roast Result: https://roast-my-stuff.app/result\n` +
+      `📌 Roast Result: https://vercel-frontend-woad.vercel.app/result\n` +
       `🔥 Roast Level: ${roastLevel}\n` +
       `⭐ Rating: ${roastRating}\n\n` +
-      `Roast your own stuff now! 👉 https://roast-my-stuff.app/`;
+      `Roast your own stuff now! 👉 https://vercel-frontend-woad.vercel.app`;
 
     const encodedText = encodeURIComponent(shareText);
     let shareUrl = "";
