@@ -41,13 +41,12 @@ const Hero = () => {
             <div className="absolute inset-0">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="space-y-2 p-6 text-center text-white">
-                  <div className="inline-block rounded-lg font-medium bg-red-600 bg-opacity-20 text-white px-3 py-1 text-sm">
+                <div className="inline-block rounded-lg font-medium bg-white bg-opacity-20 text-black px-3 py-1 text-sm">
                     Example Roast
-                  </div>
+                  </div>
                   <p className="text-xl font-medium">
-                    "Your resume has more buzzwords than a corporate meeting.
-                    "Synergy" appears 7 times! Are you trying to summon a
-                    business demon?"
+                    "Your projects are scarcer than a WiFi signal on a road trip—unstable, frustrating, and in need of a reboot.
+                    Time to re-build!"
                   </p>
                   <p className="inline-flex items-center bg-green-900/30 text-green-500 font-medium py-1 px-3 rounded-full text-sm gap-1">
                     Intensity: Spicy

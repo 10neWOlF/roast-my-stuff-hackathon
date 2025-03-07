@@ -254,7 +254,7 @@ function RoastResult() {
               <div className="flex items-center">
                 <span className="mr-2">
                   <Flame
-                    className="text-orange-500 mr-2 mt-1 flex-shrink-0"
+                    className="text-orange-500 mr-2 mt-1 flex-shcdrink-0"
                     size={20}
                   />
                 </span>
