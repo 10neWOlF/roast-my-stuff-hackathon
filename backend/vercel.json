@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "version": 2,
   "routes": [
     {
@@ -11,3 +12,17 @@
     }
   ]
 }
+=======
+    "version": 2,
+    "routes": [
+      {
+        "src": "/api/roast-resume",
+        "dest": "/api/roast-resume.js"
+      },
+      {
+        "src": "/api/roast-project",
+        "dest": "/api/roast-project.js"
+      }
+    ]
+  }
+>>>>>>> 58dc1aa7036ce4e1d2e3825b563ec05f547cc3d9
