@@ -102,7 +102,7 @@ app.post("/api/roast-resume", upload.single("resume"), async (req, res) => {
     const response = await axios.post(
       OPENROUTER_API_URL,
       {
-        model: "google/gemini-2.0-flash-lite-preview-02-05:free",
+        model: "google/gemini-2.0-flash-001",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
