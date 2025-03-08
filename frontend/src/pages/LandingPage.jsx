@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(() => {
-    // Always show the loading screen on the first load or refresh
     return true;
   });
   const location = useLocation();
@@ -16,7 +15,6 @@ const LandingPage = () => {
   useEffect(() => {
     const isNavigating = sessionStorage.getItem("isNavigating");
     if (!isNavigating) {
-      // Show the loading screen on the first load
       const timer = setTimeout(() => {
         setLoading(false);
         sessionStorage.setItem("isNavigating", "true");
@@ -27,7 +25,6 @@ const LandingPage = () => {
       setLoading(false);
     }
 
-    // Clear sessionStorage on refresh
     window.addEventListener("beforeunload", () => {
       sessionStorage.removeItem("isNavigating");
     });

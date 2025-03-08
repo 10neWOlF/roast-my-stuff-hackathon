@@ -20,7 +20,6 @@ function RoastResult() {
 
   const handleDownload = async () => {
     try {
-      // Get dimensions of the entire page
       const body = document.body;
       const html = document.documentElement;
       
@@ -34,10 +33,8 @@ function RoastResult() {
         html.clientWidth, html.scrollWidth, html.offsetWidth
       );
       
-      // Store current scroll position
       const originalScrollPos = window.pageYOffset;
       
-      // Create a div that covers the entire page
       const screenshotDiv = document.createElement('div');
       screenshotDiv.style.position = 'absolute';
       screenshotDiv.style.top = '0';
@@ -46,9 +43,8 @@ function RoastResult() {
       screenshotDiv.style.height = `${height}px`;
       screenshotDiv.style.zIndex = '-9999';
       
-      // Clone the body content into this div
       const clone = document.body.cloneNode(true);
-      // Remove any fixed position elements that could appear multiple times
+
       const fixedElements = clone.querySelectorAll('*[style*="position: fixed"], *[style*="position:fixed"]');
       fixedElements.forEach(el => {
         el.style.position = 'absolute';
@@ -58,25 +54,24 @@ function RoastResult() {
       screenshotDiv.appendChild(clone);
       document.body.appendChild(screenshotDiv);
       
-      // Scroll to top to ensure we capture from the beginning
       window.scrollTo(0, 0);
       
-      // Capture the created div
+
       const canvas = await html2canvas(screenshotDiv, {
         useCORS: true,
         scale: window.devicePixelRatio,
         width: width,
         height: height,
-        backgroundColor: "#000", // Dark background to match theme
+        backgroundColor: "#000", 
         logging: false,
         allowTaint: true,
         foreignObjectRendering: true
       });
       
-      // Clean up
+  
       document.body.removeChild(screenshotDiv);
       
-      // Restore scroll position
+
       window.scrollTo(0, originalScrollPos);
       
       const image = canvas.toDataURL("image/png");
@@ -146,7 +141,6 @@ function RoastResult() {
     navigate("/upload");
   };
 
-  // Default values in case the API doesn't return the expected structure
   const keyIssues = result?.keyIssues || [
     "No specific issues identified",
     "Check the main roast for details",
@@ -245,7 +239,7 @@ function RoastResult() {
         </div>
 
         <div id="roast-content" className="space-y-6">
-          {/* The Roast Section */}
+          {/* Roast Section */}
           <div className="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
             <div className="p-4 border-b border-zinc-800 flex justify-between items-center">
               <div className="flex items-center">
@@ -288,7 +282,7 @@ function RoastResult() {
             </div>
           </div>
 
-          {/* Key Issues and Action Items Grid */}
+          {/* Key Issues and Action Items */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Key Issues */}
             <div className="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
@@ -335,7 +329,7 @@ function RoastResult() {
             </div>
           </div>
 
-          {/* Get Another Roast Button */}
+  
           <div className="flex justify-center mt-8">
             <button
               onClick={handleGoBack}

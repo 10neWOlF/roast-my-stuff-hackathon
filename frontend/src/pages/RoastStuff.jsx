@@ -146,7 +146,7 @@ const RoastResult = () => {
             </div>
 
             <div id="roast-content" className="space-y-6">
-              {/* The Roast Section */}
+              {/* Roast Section */}
               <div className="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
                 <div className="p-4 border-b border-zinc-800 flex justify-between items-center">
                   <div className="flex items-center">
@@ -190,7 +190,7 @@ const RoastResult = () => {
                 </div>
               </div>
 
-              {/* Key Issues and Action Items Grid */}
+              {/* Key Issues and Action Items */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Key Issues */}
                 <div className="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">

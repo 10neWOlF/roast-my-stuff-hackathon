@@ -9,11 +9,14 @@ const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT || 5500;
+const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+     "https://roast-my-stuff-frontend.vercel.app",
+    ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -54,7 +57,7 @@ app.post("/api/roast-resume", upload.single("resume"), async (req, res) => {
       console.log("No file uploaded");
       return res.status(400).json({ error: "No file uploaded" });
     }
-
+  
     console.log("File uploaded:", req.file);
 
     const { roastLevel } = req.body;
@@ -99,7 +102,7 @@ app.post("/api/roast-resume", upload.single("resume"), async (req, res) => {
     const response = await axios.post(
       OPENROUTER_API_URL,
       {
-        model: "google/gemini-2.0-flash-lite-preview-02-05:free",
+        model: "google/gemini-2.0-flash-001",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },

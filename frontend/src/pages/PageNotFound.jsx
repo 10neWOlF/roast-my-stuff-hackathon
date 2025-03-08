@@ -9,7 +9,6 @@ const PageNotFound = () => {
           404 | Page Not Found
         </h1>
 
-        {/* Text content */}
         <div className="flex flex-col items-center ">
           <p className="text-white text-lg text-center">
             Oops! The page you are looking for doesn’t exist.
