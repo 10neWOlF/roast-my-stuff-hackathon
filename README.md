@@ -3,7 +3,7 @@
 ## 🚀 Overview
 "Roast My Stuff" is an AI-powered tool that humorously critiques resumes and project portfolios while providing real, actionable feedback!
 
-## 🔗 Preview: https://roast-my-stuff-hackarthon.vercel.app/
+## 🔗 Preview: https://roast-my-stuff-hackarthon.vercel.app
 
 ## 🎯 Features:
 **Upload & Roast** – Users upload their resume, GitHub repo, or portfolio link for instant roasting.
